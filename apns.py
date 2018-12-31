@@ -52,7 +52,7 @@ class APNs(object):
             self.__apns_server = 'api.push.apple.com:443'
         self.__connect = HTTP20Connection(self.__apns_server, force_proto='h2')
 
-    def send(self, message, sound, badges, device_token=None, content_available=False):
+    def send(self, message, sound, badges, payload=None, callback_func=None, device_token=None, content_available=False):
         """
         """
         if device_token is None:
@@ -77,27 +77,23 @@ class APNs(object):
                 'content-available': content
             }
         }
-        payload = json.dumps(payload_data).encode('utf-8')
+
+        if payload is not None:
+            payload_data = payload
+        body = json.dumps(payload_data).encode('utf-8')
         self.__connect.request(
             'POST',
             path,
-            body=payload,
+            body=body,
             headers=request_headers
         )
 
         # https://github.com/genesluder/python-apns/pull/3
         # http://www.ehowstuff.com/how-to-install-and-update-openssl-on-centos-6-centos-7/
         resp = self.__connect.get_response()
-        print(resp.status)
-        print(resp.read())
 
-
-apns = APNs(sandbox=True, config_file="myconfig.json")
-PUSH_ID = 'B102AAB758F39F1EEF9DBCC1711C7679FD61E409A749D55F9180D1E7AAB79980'
-# apns.send('This is a test 2', 'default', 2, device_token=PUSH_ID, content_available=True)
-while True:
-    message = raw_input('Enter the message: ')
-    if message == 'q' or message == 'exit':
-        break
-    print 'message: {}'.format(message)
-    apns.send(message, 'default', 1, device_token=PUSH_ID, content_available=True)
+        if callback_func == None:
+            print(resp.status)
+            print(resp.read())
+        else:
+            callback_func(resp, device_token)
