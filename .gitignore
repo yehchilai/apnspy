@@ -108,3 +108,6 @@ myconfig.json
 apns_*.*
 *.p8
 *.pem
+
+# add by me
+.vscode/
