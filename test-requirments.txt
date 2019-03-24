@@ -1,0 +1,5 @@
+hyper==0.7.0          
+PyJWT==1.7.1   
+Sphinx==1.8.3     
+sphinx-rtd-theme==0.4.2
+flake8==3.7.7 
