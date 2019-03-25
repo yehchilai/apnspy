@@ -11,7 +11,7 @@ from apnspy import __url__
 from apnspy import __license__
 
 here = os.path.abspath(os.path.dirname(__file__))
-with codecs.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
   long_description = '\n' + f.read()
 
 setup(name=__title__,
@@ -25,7 +25,7 @@ setup(name=__title__,
       packages=['apnspy'],
       # packages=['apnspy', 'apnspy.abc']
       install_requires=[
-          'hyper','PyJWT'
+          'hyper','PyJWT', 'cryptography'
       ],
       # entry_points='''
       #   [console_scripts]

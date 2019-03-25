@@ -8,7 +8,7 @@
 """
 
 __title__ = 'apnspy'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __author__ = 'Yeh-chi Lai'
 __license__ = 'Apache 2.0'
 __email__ = ''
