@@ -33,5 +33,5 @@ Use ``pip`` to install
     $ pip install apnspy
 
 
-.._ document: https://apnspy.readthedocs.io/en/latest/
+.. _document: https://apnspy.readthedocs.io/en/latest/
 
