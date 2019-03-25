@@ -24,7 +24,7 @@ Use ``pip`` to install
     $ pip install apnspy
 
 
-(Optional) creat an virtual environment and use ``pip`` to install
+(Optional) creat a virtual environment and use ``pip`` to install
 
 .. code-block:: bash
 
