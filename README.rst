@@ -10,14 +10,14 @@ apnspy
 .. image:: https://img.shields.io/hexpm/l/plug.svg
    :target: https://github.com/yehchilai/apnspy/blob/master/LICENSE
 
-A Python client for Apple Push Notification service (under developing)
+A Python client for Apple Push Notification service
 
 For more information, please read the `document`_
 
 Quick Start
 -----------
 
-Use ``pip`` to install
+Use ``pip`` to install.
 
 .. code-block:: bash
 
@@ -30,8 +30,17 @@ Use ``pip`` to install
 
     $ virtualenv venv
     $ source venv/bin/activate
-    $ pip install apnspy
+    (venv) $ pip install apnspy
 
+Check if the package is installed.
+
+.. code-block:: bash
+
+    $ python
+    >>> from apnspy import APNs
+    >>>
+    
+There should be no ImportError.
 
 .. _document: https://apnspy.readthedocs.io/en/latest/
 

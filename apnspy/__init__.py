@@ -8,8 +8,10 @@
 """
 
 __title__ = 'apnspy'
-__version__ = '0.0.2'
+__version__ = '0.0.6'
 __author__ = 'Yeh-chi Lai'
 __license__ = 'Apache 2.0'
 __email__ = ''
 __url__ = 'https://github.com/yehchilai/apnspy'
+
+from .apns import APNs

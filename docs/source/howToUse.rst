@@ -13,6 +13,7 @@ Make a new file to config the connection
     touch config.json
 
 Put the information in the config.json file as follow.
+
 - update team_id 
 - update app_id
 - update apns_key_id
@@ -22,6 +23,9 @@ Put the information in the config.json file as follow.
 .. code-block:: javascript
 
     {
+        // sandbox=true, use Development server: api.development.push.apple.com:443
+        // sandbox=false, use Production server: api.push.apple.com:443
+        "sandbox": true,
         // Team ID is in your Apple Developer Account. Check the membership details page.
         "team_id": "YOUR_TEAM_ID",
         // App ID is the iOS app id
@@ -35,15 +39,67 @@ Put the information in the config.json file as follow.
 Sample code
 ===========
 
-- Generate apns object and send a message 
+- Basic sample usage.
 
 .. code-block:: python
 
-    from apnspy.apns import APNs
-    apns = APNs(sandbox=False, config_file="config.json")
+    from apnspy import APNs
+    import json
+    
+    apns = APNs(config_file="config.json")
+
+    # example 
     # PUSH_ID = 'B6CDF836813D0D6A1F3356E409A1C82D7CF849AE682034B9BAE01D7ABDABC111'
     PUSH_ID = 'CLIENT_DEVICE_TOKEN'
-    message = 'This is a test'
-    apns.send(message, 'default', 1, device_token=PUSH_ID)
 
+    # payload example from Local and Remote Notification Programming Guide
+    # https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html#//apple_ref/doc/uid/TP40008194-CH10-SW1 
+    payload = {
+                "aps" : {
+                    "alert" : {
+                        "title" : "Game Request",
+                        "body" : "Bob wants to play poker",
+                        "action-loc-key" : "PLAY"
+                    },
+                    "badge" : 5
+                },
+                "acme1" : "bar",
+                "acme2" : [ "bang",  "whiz" ]
+            }
+
+    def callback(response, device_token):
+    """
+        callback function provide two parameters response and device_token
+        response is a hyper.HTTP20Response(https://hyper.readthedocs.io/en/latest/api.html#hyper.HTTP20Response) object
+        device_token is PUSH_ID
+    """
+        print(response.status)
+        print(device_token)
+        json_string = response.read()
+        json_dict = json.loads(json_string)
+        print(json_dict)
+
+    apns.send(payload=payload, callback_func=callback, device_token=PUSH_ID)
+
+- Alternative sample usage
+
+.. code-block:: python
+
+    from apnspy import APNs
+    apns = APNs(config_file="config.json")
+    PUSH_ID = 'CLIENT_DEVICE_TOKEN'
+
+    def callback(response, device_token):
+        print(response.status)
+        print(device_token)
+    
+    # All parameters are optional !!!!!! Except "device_token"
+    apns.send(message='This is a test', # notification content shows on iPhone
+              sound='default',          # plays a notification sound
+              badges=1,                 # show badge number on the app’s icon  
+              device_token=PUSH_ID,     # device token (Required)
+              content_available=False,  # if True, device can run backgroud update
+              mutable_content=False,    # if True, device can run notification extension service
+              callback_func=callback    # get response from APNs
+              )
 

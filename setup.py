@@ -1,7 +1,7 @@
 # from distutils.core import setup
 import os
 import codecs
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from apnspy import __title__
 from apnspy import __version__
@@ -24,19 +24,20 @@ setup(name=__title__,
       license=__license__,
       packages=['apnspy'],
       # packages=['apnspy', 'apnspy.abc']
+      python_requires='>=2.7, >=3.7',
       install_requires=[
           'hyper','PyJWT', 'cryptography'
       ],
       # entry_points='''
       #   [console_scripts]
-      #   apnspy=apnspy.cli
+      #   apnspy=apnspy.cli:main
       # '''
       classifiers=[
         # python trove classifiers
         # https://pypi.org/pypi?%3Aaction=list_classifiers
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7'
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7'
       ]
     )
     

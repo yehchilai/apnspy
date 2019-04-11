@@ -26,7 +26,7 @@ Welcome to apnspy's documentation
 Indices and tables
 ==================
 
-A Python client for Apple Push Notification service (under developing)
+A Python client for Apple Push Notification service
 
 
 

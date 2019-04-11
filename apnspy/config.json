@@ -1,4 +1,7 @@
 {
+	// sandbox=True, use Development server: api.development.push.apple.com:443
+    // sandbox=False, use Production server: api.push.apple.com:443
+	"sandbox": true,
 	// Team ID is in your Apple Developer Account. Check the membership details page.
 	"team_id": "YOUR_TEAM_ID",
 	// App ID is the iOS app id
